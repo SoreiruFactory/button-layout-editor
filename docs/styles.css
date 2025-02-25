@@ -69,3 +69,10 @@ input[type="color"] {
     height: 170mm;
     border-radius: 20mm;
 }
+
+.button {
+    position: absolute;
+    cursor: pointer;
+    border-radius: 50%;
+    border: 1px solid black;
+}
