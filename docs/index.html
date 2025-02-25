@@ -50,19 +50,12 @@
             text-align: center;
             padding: 5px;
             border: none;
-            background-color: #d8d8d8;
             border-radius: 5px;
-            color: black;
         }
 
-        .import-button {
-            width: 100%;
-            padding: 10px;
-            background-color: gray;
-            border: none;
-            border-radius: 5px;
+        .number-box {
+            width: 50px;
             text-align: center;
-            cursor: pointer;
         }
 
         /* メインコンテンツ */
@@ -91,42 +84,23 @@
 
         /* コントローラー部分 */
         .controller {
-            width: 300px;
-            height: 170px;
             background-color: #dedede;
-            border-radius: 20px;
+            border: 2px solid black;
             position: relative;
+            margin: 0 auto;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             align-items: center;
-            border: 2px solid black;
-            margin: 0 auto;
         }
 
         .button {
-            width: 24px;
-            height: 24px;
-            background-color: #6ffff3;
-            border-radius: 50%;
             position: absolute;
+            border-radius: 50%;
             border: 1px solid black;
+            cursor: grab;
+            background-color: #6ffff3;
         }
-
-        /* ボタン配置 */
-        .button:nth-child(1) { top: 30px; left: 70px; }
-        .button:nth-child(2) { top: 50px; left: 90px; }
-        .button:nth-child(3) { top: 70px; left: 110px; }
-        .button:nth-child(4) { top: 90px; left: 130px; }
-        .button:nth-child(5) { top: 50px; left: 150px; }
-        .button:nth-child(6) { top: 70px; left: 170px; }
-        .button:nth-child(7) { top: 90px; left: 190px; }
-        .button:nth-child(8) { top: 110px; left: 170px; }
-        .button:nth-child(9) { top: 110px; left: 150px; }
-        .button:nth-child(10) { top: 130px; left: 130px; }
-        .button:nth-child(11) { top: 90px; left: 110px; }
-        .button:nth-child(12) { top: 110px; left: 90px; }
-
     </style>
 </head>
 <body>
@@ -138,20 +112,19 @@
         <div class="settings">
             <h3>Shape Setting</h3>
             <div class="input-group">
-                <span>height</span>
-                <input type="text" class="input-box" value="170mm">
+                <span>高さ</span>
+                <input type="number" class="number-box" id="heightInput" value="170">
+                <span>mm</span>
             </div>
             <div class="input-group">
-                <span>wide</span>
-                <input type="text" class="input-box" value="300mm">
+                <span>幅</span>
+                <input type="number" class="number-box" id="widthInput" value="300">
+                <span>mm</span>
             </div>
             <div class="input-group">
-                <span>corner</span>
-                <input type="text" class="input-box" value="20mm">
-            </div>
-            <div class="input-group">
-                <span>color</span>
-                <input type="text" class="input-box" value="#dedede">
+                <span>角丸</span>
+                <input type="number" class="number-box" id="cornerInput" value="20">
+                <span>mm</span>
             </div>
         </div>
 
@@ -159,21 +132,12 @@
             <h3>Button Setting</h3>
             <div class="input-group">
                 <span>24mm</span>
-                <input type="text" class="input-box" value="11">
+                <input type="number" class="number-box" id="btn24Count" value="11">
             </div>
             <div class="input-group">
                 <span>30mm</span>
-                <input type="text" class="input-box" value="1">
+                <input type="number" class="number-box" id="btn30Count" value="1">
             </div>
-            <div class="input-group">
-                <span>color</span>
-                <input type="text" class="input-box" value="#6ffff3">
-            </div>
-        </div>
-
-        <div class="settings">
-            <h3>Other Setting</h3>
-            <button class="import-button">import image</button>
         </div>
     </div>
 
@@ -186,21 +150,85 @@
             <button>Export</button>
         </div>
 
-        <div class="controller">
-            <div class="button"></div>
-            <div class="button"></div>
-            <div class="button"></div>
-            <div class="button"></div>
-            <div class="button"></div>
-            <div class="button"></div>
-            <div class="button"></div>
-            <div class="button"></div>
-            <div class="button"></div>
-            <div class="button"></div>
-            <div class="button"></div>
-            <div class="button"></div>
+        <div class="controller" id="controller">
+            <!-- JavaScriptでボタンを動的に追加 -->
         </div>
     </div>
+
+    <script>
+        const controller = document.getElementById("controller");
+
+        // コントローラーの設定変更
+        document.getElementById("heightInput").addEventListener("input", updateControllerSize);
+        document.getElementById("widthInput").addEventListener("input", updateControllerSize);
+        document.getElementById("cornerInput").addEventListener("input", updateControllerSize);
+
+        function updateControllerSize() {
+            const height = document.getElementById("heightInput").value;
+            const width = document.getElementById("widthInput").value;
+            const corner = document.getElementById("cornerInput").value;
+            controller.style.height = height + "px";
+            controller.style.width = width + "px";
+            controller.style.borderRadius = corner + "px";
+        }
+
+        // ボタンの数変更
+        document.getElementById("btn24Count").addEventListener("input", updateButtons);
+        document.getElementById("btn30Count").addEventListener("input", updateButtons);
+
+        function updateButtons() {
+            controller.innerHTML = ""; // 一度ボタンを全削除
+            const btn24Count = parseInt(document.getElementById("btn24Count").value);
+            const btn30Count = parseInt(document.getElementById("btn30Count").value);
+
+            for (let i = 0; i < btn24Count; i++) {
+                addButton(24);
+            }
+
+            for (let i = 0; i < btn30Count; i++) {
+                addButton(30);
+            }
+        }
+
+        function addButton(size) {
+            const btn = document.createElement("div");
+            btn.className = "button";
+            btn.style.width = size + "px";
+            btn.style.height = size + "px";
+            btn.style.left = Math.random() * 250 + "px"; // ランダム配置
+            btn.style.top = Math.random() * 130 + "px"; // ランダム配置
+            makeDraggable(btn);
+            controller.appendChild(btn);
+        }
+
+        // ドラッグ＆ドロップ機能
+        function makeDraggable(button) {
+            let isDragging = false, offsetX, offsetY;
+
+            button.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                offsetX = e.clientX - button.offsetLeft;
+                offsetY = e.clientY - button.offsetTop;
+                button.style.cursor = 'grabbing';
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                let x = e.clientX - offsetX;
+                let y = e.clientY - offsetY;
+                button.style.left = `${x}px`;
+                button.style.top = `${y}px`;
+            });
+
+            document.addEventListener('mouseup', () => {
+                isDragging = false;
+                button.style.cursor = 'grab';
+            });
+        }
+
+        // 初回ロード時にボタンをセット
+        updateButtons();
+    </script>
 
 </body>
 </html>
