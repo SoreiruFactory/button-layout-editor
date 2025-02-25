@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,17 +17,17 @@
                 <h3>Shape Setting</h3>
                 <div class="control">
                     <button class="arrow" onclick="changeValue('height', -10)">◀</button>
-                    <span id="heightValue" class="draggable" data-type="height">170mm</span>
+                    <span class="draggable" data-type="height">170mm</span>
                     <button class="arrow" onclick="changeValue('height', 10)">▶</button>
                 </div>
                 <div class="control">
                     <button class="arrow" onclick="changeValue('width', -10)">◀</button>
-                    <span id="widthValue" class="draggable" data-type="width">300mm</span>
+                    <span class="draggable" data-type="width">300mm</span>
                     <button class="arrow" onclick="changeValue('width', 10)">▶</button>
                 </div>
                 <div class="control">
                     <button class="arrow" onclick="changeValue('corner', -5)">◀</button>
-                    <span id="cornerValue" class="draggable" data-type="corner">20mm</span>
+                    <span class="draggable" data-type="corner">20mm</span>
                     <button class="arrow" onclick="changeValue('corner', 5)">▶</button>
                 </div>
                 <input type="color" id="shapeColor" value="#dedede">
@@ -38,15 +38,21 @@
                 <h3>Button Setting</h3>
                 <div class="control">
                     <button class="arrow" onclick="changeValue('button24mm', -1)">◀</button>
-                    <span id="button24mmValue" class="draggable" data-type="button24mm">11</span>
+                    <span class="draggable" data-type="button24mm">11</span>
                     <button class="arrow" onclick="changeValue('button24mm', 1)">▶</button>
                 </div>
                 <div class="control">
                     <button class="arrow" onclick="changeValue('button30mm', -1)">◀</button>
-                    <span id="button30mmValue" class="draggable" data-type="button30mm">1</span>
+                    <span class="draggable" data-type="button30mm">1</span>
                     <button class="arrow" onclick="changeValue('button30mm', 1)">▶</button>
                 </div>
                 <input type="color" id="buttonColor" value="#6ffff3">
+            </div>
+
+            <!-- Other Setting -->
+            <div class="setting">
+                <h3>Other Setting</h3>
+                <button id="importImage">import image</button>
             </div>
         </div>
 
