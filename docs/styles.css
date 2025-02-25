@@ -1,11 +1,8 @@
-* {
-    box-sizing: border-box;
-}
-
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    display: flex;
 }
 
 .container {
@@ -20,7 +17,7 @@ body {
     padding: 20px;
 }
 
-.sidebar h2 {
+h2, h3 {
     text-align: center;
 }
 
@@ -30,26 +27,31 @@ body {
     border: 1px dashed #fff;
 }
 
-label {
-    display: block;
+.control {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-bottom: 10px;
 }
 
-input[type="range"] {
-    width: 100%;
-}
-
-input[type="number"], input[type="color"] {
-    width: 100%;
-}
-
-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #333;
-    color: white;
+.arrow {
+    background: none;
     border: none;
+    color: white;
+    font-size: 20px;
     cursor: pointer;
+}
+
+.draggable {
+    width: 50px;
+    text-align: center;
+    cursor: ew-resize;
+    display: inline-block;
+    font-size: 18px;
+}
+
+input[type="color"] {
+    width: 100%;
 }
 
 .preview {
@@ -61,20 +63,9 @@ button {
 }
 
 .shape {
-    position: relative; /* これが必要 */
+    position: relative;
     background-color: #dedede;
     width: 300mm;
     height: 170mm;
     border-radius: 20mm;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-.button {
-    position: absolute; /* ボタンを自由に動かすためにposition: absoluteを使用 */
-    cursor: pointer;
-    border-radius: 50%;
-    border: 1px solid black;
 }
