@@ -1,0 +1,80 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+.sidebar {
+    background-color: #1a1a1a;
+    color: white;
+    width: 25%;
+    padding: 20px;
+}
+
+.sidebar h2 {
+    text-align: center;
+}
+
+.setting {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px dashed #fff;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+input[type="range"] {
+    width: 100%;
+}
+
+input[type="number"], input[type="color"] {
+    width: 100%;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.preview {
+    width: 75%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+}
+
+.shape {
+    position: relative; /* これが必要 */
+    background-color: #dedede;
+    width: 300mm;
+    height: 170mm;
+    border-radius: 20mm;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.button {
+    position: absolute; /* ボタンを自由に動かすためにposition: absoluteを使用 */
+    cursor: pointer;
+    border-radius: 50%;
+    border: 1px solid black;
+}
