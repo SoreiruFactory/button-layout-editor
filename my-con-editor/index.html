@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Con Editor</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="sidebar">
+        <h1>MY CON EDITOR</h1>
+        
+        <div class="section">
+            <h2>Shape Setting</h2>
+            <label>Height: <input type="number" id="height" value="170"> mm</label>
+            <label>Width: <input type="number" id="width" value="300"> mm</label>
+            <label>Corner: <input type="number" id="corner" value="20"> mm</label>
+            <label>Color: <input type="color" id="color" value="#afafaf"></label>
+        </div>
+
+        <div class="section">
+            <h2>Button Setting</h2>
+            <label>24mm: <input type="number" id="btn24" value="11"></label>
+            <label>30mm: <input type="number" id="btn30" value="1"></label>
+            <label>Button Color: <input type="color" id="btnColor" value="#3c3c3c"></label>
+        </div>
+
+        <button id="save">Save</button>
+        <button id="export">Export</button>
+    </div>
+
+    <div class="editor">
+        <div class="controller" id="controller"></div>
+    </div>
+
+    <script src="./script.js"></script>
+</body>
+</html>
