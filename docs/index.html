@@ -31,44 +31,36 @@
             border: 2px dashed white;
             padding: 15px;
             margin-bottom: 20px;
-            text-align: center;
         }
 
         .settings h3 {
             font-size: 16px;
             margin-bottom: 10px;
+            text-align: center;
         }
 
         .input-group {
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: space-between;
             margin-bottom: 10px;
-        }
-
-        .btn-group {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
             background-color: #333;
             border-radius: 20px;
             padding: 5px;
         }
 
-        .btn-group button {
+        .input-group span {
+            color: white;
+            padding: 0 10px;
+        }
+
+        .input-group button {
             background: white;
             border: none;
             padding: 5px 10px;
             border-radius: 50%;
             cursor: pointer;
             font-weight: bold;
-        }
-
-        .btn-group span {
-            padding: 0 10px;
-            font-size: 16px;
-            color: white;
         }
 
         .color-picker {
@@ -91,15 +83,13 @@
         }
 
         .controller {
-            background-color: #dedede;
+            background-color: #afafaf;
             border: 2px solid black;
             position: relative;
+            width: 300px;
+            height: 170px;
+            border-radius: 20px;
             margin: 0 auto;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
         }
 
         .button {
@@ -107,7 +97,7 @@
             border-radius: 50%;
             border: 1px solid black;
             cursor: grab;
-            background-color: #6ffff3;
+            background-color: #3c3c3c;
         }
     </style>
 </head>
@@ -119,114 +109,58 @@
 
         <div class="settings">
             <h3>Shape Setting</h3>
-            <div class="btn-group">
+            <div class="input-group">
                 <button onclick="updateShape('height', -10)">◀</button>
                 <span id="heightValue">170mm</span>
                 <button onclick="updateShape('height', 10)">▶</button>
             </div>
-            <div class="btn-group">
+            <div class="input-group">
                 <button onclick="updateShape('width', -10)">◀</button>
                 <span id="widthValue">300mm</span>
                 <button onclick="updateShape('width', 10)">▶</button>
             </div>
-            <div class="btn-group">
+            <div class="input-group">
                 <button onclick="updateShape('corner', -5)">◀</button>
                 <span id="cornerValue">20mm</span>
                 <button onclick="updateShape('corner', 5)">▶</button>
             </div>
-            <input type="color" class="color-picker" id="bgColorPicker" value="#dedede">
+            <input type="color" class="color-picker" id="bgColorPicker" value="#afafaf">
         </div>
 
         <div class="settings">
             <h3>Button Setting</h3>
-            <div class="btn-group">
+            <div class="input-group">
                 <button onclick="updateButtonCount('24mm', -1)">◀</button>
                 <span id="btn24Count">11</span>
                 <button onclick="updateButtonCount('24mm', 1)">▶</button>
             </div>
-            <div class="btn-group">
+            <div class="input-group">
                 <button onclick="updateButtonCount('30mm', -1)">◀</button>
                 <span id="btn30Count">1</span>
                 <button onclick="updateButtonCount('30mm', 1)">▶</button>
             </div>
-            <input type="color" class="color-picker" id="btnColorPicker" value="#6ffff3">
+            <input type="color" class="color-picker" id="btnColorPicker" value="#3c3c3c">
         </div>
     </div>
 
     <!-- メインエリア -->
     <div class="main-content">
         <div class="controller" id="controller">
+            <!-- 初期配置 -->
+            <div class="button" style="top: 30px; left: 70px; width: 24px; height: 24px;"></div>
+            <div class="button" style="top: 50px; left: 90px; width: 24px; height: 24px;"></div>
+            <div class="button" style="top: 70px; left: 110px; width: 24px; height: 24px;"></div>
+            <div class="button" style="top: 90px; left: 130px; width: 24px; height: 24px;"></div>
+            <div class="button" style="top: 50px; left: 150px; width: 24px; height: 24px;"></div>
+            <div class="button" style="top: 70px; left: 170px; width: 24px; height: 24px;"></div>
+            <div class="button" style="top: 90px; left: 190px; width: 24px; height: 24px;"></div>
+            <div class="button" style="top: 110px; left: 170px; width: 24px; height: 24px;"></div>
+            <div class="button" style="top: 110px; left: 150px; width: 24px; height: 24px;"></div>
+            <div class="button" style="top: 130px; left: 130px; width: 24px; height: 24px;"></div>
+            <div class="button" style="top: 90px; left: 110px; width: 24px; height: 24px;"></div>
+            <div class="button" style="top: 110px; left: 90px; width: 30px; height: 30px;"></div>
         </div>
     </div>
-
-    <script>
-        const controller = document.getElementById("controller");
-
-        function updateShape(type, value) {
-            let element = document.getElementById(type + "Value");
-            let newValue = parseInt(element.innerText) + value;
-            if (newValue < 50) newValue = 50;
-            element.innerText = newValue + "mm";
-
-            if (type === 'height') controller.style.height = newValue + "px";
-            if (type === 'width') controller.style.width = newValue + "px";
-            if (type === 'corner') controller.style.borderRadius = newValue + "px";
-        }
-
-        function updateButtonCount(size, value) {
-            let element = document.getElementById("btn" + size + "Count");
-            let newValue = parseInt(element.innerText) + value;
-            if (newValue < 0) newValue = 0;
-            element.innerText = newValue;
-            updateButtons();
-        }
-
-        function updateButtons() {
-            controller.innerHTML = "";
-            let btn24Count = parseInt(document.getElementById("btn24Count").innerText);
-            let btn30Count = parseInt(document.getElementById("btn30Count").innerText);
-            
-            for (let i = 0; i < btn24Count; i++) addButton(24);
-            for (let i = 0; i < btn30Count; i++) addButton(30);
-        }
-
-        function addButton(size) {
-            const btn = document.createElement("div");
-            btn.className = "button";
-            btn.style.width = size + "px";
-            btn.style.height = size + "px";
-            btn.style.left = Math.random() * (controller.clientWidth - size) + "px";
-            btn.style.top = Math.random() * (controller.clientHeight - size) + "px";
-            makeDraggable(btn);
-            controller.appendChild(btn);
-        }
-
-        function makeDraggable(button) {
-            let isDragging = false, offsetX, offsetY;
-
-            button.addEventListener('mousedown', (e) => {
-                isDragging = true;
-                offsetX = e.clientX - button.offsetLeft;
-                offsetY = e.clientY - button.offsetTop;
-                button.style.cursor = 'grabbing';
-            });
-
-            document.addEventListener('mousemove', (e) => {
-                if (!isDragging) return;
-                let x = e.clientX - offsetX;
-                let y = e.clientY - offsetY;
-                button.style.left = `${Math.max(0, Math.min(x, controller.clientWidth - button.clientWidth))}px`;
-                button.style.top = `${Math.max(0, Math.min(y, controller.clientHeight - button.clientHeight))}px`;
-            });
-
-            document.addEventListener('mouseup', () => {
-                isDragging = false;
-                button.style.cursor = 'grab';
-            });
-        }
-
-        updateButtons();
-    </script>
 
 </body>
 </html>
