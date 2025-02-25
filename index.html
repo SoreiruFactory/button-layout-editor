@@ -7,6 +7,10 @@
   <style>
     body {
       font-family: Arial, sans-serif;
+      display: flex;
+    }
+    #controls {
+      margin-right: 20px;
     }
     #editor {
       width: 500px;
@@ -22,30 +26,68 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      border-radius: 5px;
+      border-radius: 50%; /* ボタンを丸く */
       cursor: move;
       position: absolute;
+    }
+    .color-picker {
+      margin-bottom: 10px;
     }
   </style>
 </head>
 <body>
 
-<h1>Button Layout Editor</h1>
-<p>ドラッグしてボタンを配置できます</p>
+<div id="controls">
+  <button id="addButton">Add Button</button>
+  <button id="removeButton">Remove Button</button>
+  <div class="color-picker">
+    <label for="colorPicker">Choose Button Color:</label>
+    <input type="color" id="colorPicker">
+  </div>
+</div>
 
 <div id="editor">
-  <div class="button" draggable="true" style="left: 10px; top: 10px;">Button 1</div>
-  <div class="button" draggable="true" style="left: 70px; top: 10px;">Button 2</div>
 </div>
 
 <script>
-  const buttons = document.querySelectorAll('.button');
   const editor = document.getElementById('editor');
+  let buttonCounter = 0;
 
-  let draggedButton = null;
-  let offsetX, offsetY;
+  // ボタンの追加
+  document.getElementById('addButton').addEventListener('click', () => {
+    buttonCounter++;
+    const newButton = document.createElement('div');
+    newButton.classList.add('button');
+    newButton.draggable = true;
+    newButton.style.left = '10px';
+    newButton.style.top = '10px';
+    newButton.innerText = `Button ${buttonCounter}`;
+    editor.appendChild(newButton);
+    makeButtonDraggable(newButton);
+  });
 
-  buttons.forEach(button => {
+  // ボタンの削除
+  document.getElementById('removeButton').addEventListener('click', () => {
+    if (editor.lastChild) {
+      editor.removeChild(editor.lastChild);
+      buttonCounter--;
+    }
+  });
+
+  // 色変更
+  document.getElementById('colorPicker').addEventListener('input', (e) => {
+    const color = e.target.value;
+    const buttons = document.querySelectorAll('.button');
+    buttons.forEach(button => {
+      button.style.backgroundColor = color;
+    });
+  });
+
+  // ボタンをドラッグ可能にする
+  function makeButtonDraggable(button) {
+    let draggedButton = null;
+    let offsetX, offsetY;
+
     button.addEventListener('dragstart', (e) => {
       draggedButton = e.target;
       offsetX = e.offsetX;
@@ -60,11 +102,10 @@
         draggedButton = null;
       }
     });
-  });
+  }
 
-  editor.addEventListener('dragover', (e) => {
-    e.preventDefault(); // デフォルトの動作を無効にして、ドロップを有効化
-  });
+  // 初期のボタンを1つ作成
+  document.getElementById('addButton').click();
 </script>
 
 </body>
