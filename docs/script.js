@@ -1,73 +1,58 @@
-const shape = document.getElementById('shape');
-const values = {
-    height: 170,
-    width: 300,
-    corner: 20,
-    button24mm: 11,
-    button30mm: 1
-};
-
-function changeValue(type, amount) {
-    values[type] = Math.max(1, values[type] + amount);
-    document.getElementById(type + 'Value').textContent = values[type] + (type.includes("button") ? "" : "mm");
-    updateShape();
-}
-
-function updateShape() {
-    shape.style.height = `${values.height}mm`;
-    shape.style.width = `${values.width}mm`;
-    shape.style.borderRadius = `${values.corner}mm`;
-}
-
-// 数値をドラッグで変更
-document.querySelectorAll('.draggable').forEach(element => {
-    let isDragging = false;
-    let startY;
-    let type = element.dataset.type;
-
-    element.addEventListener('mousedown', (e) => {
-        isDragging = true;
-        startY = e.clientY;
-    });
-
-    document.addEventListener('mousemove', (e) => {
-        if (isDragging) {
-            let diff = Math.floor((startY - e.clientY) / 5);
-            if (diff !== 0) {
-                changeValue(type, diff);
-                startY = e.clientY;
-            }
-        }
-    });
-
-    document.addEventListener('mouseup', () => isDragging = false);
-});
 document.addEventListener("DOMContentLoaded", function() {
-    updateShape();
-    document.querySelectorAll('.draggable').forEach(element => {
-        let isDragging = false;
-        let startY;
-        let type = element.dataset.type;
+    const shape = document.getElementById("shape");
+    const values = { height: 170, width: 300, corner: 20, button24mm: 11, button30mm: 1 };
 
-        element.addEventListener('mousedown', (e) => {
-            isDragging = true;
-            startY = e.clientY;
-        });
+    function changeValue(type, amount) {
+        values[type] = Math.max(1, values[type] + amount);
+        document.querySelector(`[data-type='${type}']`).textContent = values[type] + (type.includes("button") ? "" : "mm");
+        updateShape();
+    }
 
-        document.addEventListener('mousemove', (e) => {
-            if (isDragging) {
-                let diff = Math.floor((startY - e.clientY) / 5);
-                if (diff !== 0) {
-                    changeValue(type, diff);
-                    startY = e.clientY;
-                }
+    function updateShape() {
+        shape.style.height = `${values.height}mm`;
+        shape.style.width = `${values.width}mm`;
+        shape.style.borderRadius = `${values.corner}mm`;
+    }
+
+    // ボタンのドラッグ＆ドロップ
+    function makeDraggable(button) {
+        let offsetX, offsetY;
+        button.addEventListener("mousedown", (e) => {
+            offsetX = e.clientX - button.offsetLeft;
+            offsetY = e.clientY - button.offsetTop;
+            function move(e) {
+                let x = e.clientX - offsetX;
+                let y = e.clientY - offsetY;
+                button.style.left = `${x}px`;
+                button.style.top = `${y}px`;
             }
+            document.addEventListener("mousemove", move);
+            document.addEventListener("mouseup", () => {
+                document.removeEventListener("mousemove", move);
+            }, { once: true });
         });
+    }
 
-        document.addEventListener('mouseup', () => isDragging = false);
-    });
+    function createButtons() {
+        shape.innerHTML = "";
+        for (let i = 0; i < values.button24mm; i++) {
+            let button = document.createElement("div");
+            button.classList.add("button");
+            button.style.width = "24mm";
+            button.style.height = "24mm";
+            shape.appendChild(button);
+            makeDraggable(button);
+        }
+        for (let i = 0; i < values.button30mm; i++) {
+            let button = document.createElement("div");
+            button.classList.add("button");
+            button.style.width = "30mm";
+            button.style.height = "30mm";
+            shape.appendChild(button);
+            makeDraggable(button);
+        }
+    }
+
+    createButtons();
+    updateShape();
 });
-
-
-// 初期表示
-updateShape();
