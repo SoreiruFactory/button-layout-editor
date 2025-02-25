@@ -4,64 +4,203 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MY CON EDITOR</title>
-    <link rel="stylesheet" href="./styles.css"/>
+    <style>
+        body {
+            display: flex;
+            background-color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            color: white;
+        }
+
+        /* サイドバー */
+        .sidebar {
+            width: 250px;
+            background-color: black;
+            padding: 20px;
+            height: 100vh;
+        }
+
+        .title {
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .settings {
+            border: 2px dashed white;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .settings h3 {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .input-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .input-box {
+            width: 80px;
+            text-align: center;
+            padding: 5px;
+            border: none;
+            background-color: #d8d8d8;
+            border-radius: 5px;
+            color: black;
+        }
+
+        .import-button {
+            width: 100%;
+            padding: 10px;
+            background-color: gray;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        /* メインコンテンツ */
+        .main-content {
+            flex-grow: 1;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .top-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .top-buttons button {
+            background-color: black;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+        }
+
+        /* コントローラー部分 */
+        .controller {
+            width: 300px;
+            height: 170px;
+            background-color: #dedede;
+            border-radius: 20px;
+            position: relative;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid black;
+            margin: 0 auto;
+        }
+
+        .button {
+            width: 24px;
+            height: 24px;
+            background-color: #6ffff3;
+            border-radius: 50%;
+            position: absolute;
+            border: 1px solid black;
+        }
+
+        /* ボタン配置 */
+        .button:nth-child(1) { top: 30px; left: 70px; }
+        .button:nth-child(2) { top: 50px; left: 90px; }
+        .button:nth-child(3) { top: 70px; left: 110px; }
+        .button:nth-child(4) { top: 90px; left: 130px; }
+        .button:nth-child(5) { top: 50px; left: 150px; }
+        .button:nth-child(6) { top: 70px; left: 170px; }
+        .button:nth-child(7) { top: 90px; left: 190px; }
+        .button:nth-child(8) { top: 110px; left: 170px; }
+        .button:nth-child(9) { top: 110px; left: 150px; }
+        .button:nth-child(10) { top: 130px; left: 130px; }
+        .button:nth-child(11) { top: 90px; left: 110px; }
+        .button:nth-child(12) { top: 110px; left: 90px; }
+
+    </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <h2>MY CON EDITOR</h2>
-            
-            <!-- Shape Setting -->
-            <div class="setting">
-                <h3>Shape Setting</h3>
-                <div class="control">
-                    <button class="arrow" onclick="changeValue('height', -10)">◀</button>
-                    <span class="draggable" data-type="height">170mm</span>
-                    <button class="arrow" onclick="changeValue('height', 10)">▶</button>
-                </div>
-                <div class="control">
-                    <button class="arrow" onclick="changeValue('width', -10)">◀</button>
-                    <span class="draggable" data-type="width">300mm</span>
-                    <button class="arrow" onclick="changeValue('width', 10)">▶</button>
-                </div>
-                <div class="control">
-                    <button class="arrow" onclick="changeValue('corner', -5)">◀</button>
-                    <span class="draggable" data-type="corner">20mm</span>
-                    <button class="arrow" onclick="changeValue('corner', 5)">▶</button>
-                </div>
-                <input type="color" id="shapeColor" value="#dedede">
-            </div>
 
-            <!-- Button Setting -->
-            <div class="setting">
-                <h3>Button Setting</h3>
-                <div class="control">
-                    <button class="arrow" onclick="changeValue('button24mm', -1)">◀</button>
-                    <span class="draggable" data-type="button24mm">11</span>
-                    <button class="arrow" onclick="changeValue('button24mm', 1)">▶</button>
-                </div>
-                <div class="control">
-                    <button class="arrow" onclick="changeValue('button30mm', -1)">◀</button>
-                    <span class="draggable" data-type="button30mm">1</span>
-                    <button class="arrow" onclick="changeValue('button30mm', 1)">▶</button>
-                </div>
-                <input type="color" id="buttonColor" value="#6ffff3">
-            </div>
+    <!-- サイドバー -->
+    <div class="sidebar">
+        <div class="title">MY CON EDITOR</div>
 
-            <!-- Other Setting -->
-            <div class="setting">
-                <h3>Other Setting</h3>
-                <button id="importImage">import image</button>
+        <div class="settings">
+            <h3>Shape Setting</h3>
+            <div class="input-group">
+                <span>height</span>
+                <input type="text" class="input-box" value="170mm">
+            </div>
+            <div class="input-group">
+                <span>wide</span>
+                <input type="text" class="input-box" value="300mm">
+            </div>
+            <div class="input-group">
+                <span>corner</span>
+                <input type="text" class="input-box" value="20mm">
+            </div>
+            <div class="input-group">
+                <span>color</span>
+                <input type="text" class="input-box" value="#dedede">
             </div>
         </div>
 
-        <!-- Shape and Button Preview -->
-        <div class="preview">
-            <div class="shape" id="shape"></div>
+        <div class="settings">
+            <h3>Button Setting</h3>
+            <div class="input-group">
+                <span>24mm</span>
+                <input type="text" class="input-box" value="11">
+            </div>
+            <div class="input-group">
+                <span>30mm</span>
+                <input type="text" class="input-box" value="1">
+            </div>
+            <div class="input-group">
+                <span>color</span>
+                <input type="text" class="input-box" value="#6ffff3">
+            </div>
+        </div>
+
+        <div class="settings">
+            <h3>Other Setting</h3>
+            <button class="import-button">import image</button>
         </div>
     </div>
 
-    <script src="./script.js"/></script>
+    <!-- メインエリア -->
+    <div class="main-content">
+        <div class="top-buttons">
+            <button>Home</button>
+            <button>How to</button>
+            <button>Save</button>
+            <button>Export</button>
+        </div>
+
+        <div class="controller">
+            <div class="button"></div>
+            <div class="button"></div>
+            <div class="button"></div>
+            <div class="button"></div>
+            <div class="button"></div>
+            <div class="button"></div>
+            <div class="button"></div>
+            <div class="button"></div>
+            <div class="button"></div>
+            <div class="button"></div>
+            <div class="button"></div>
+            <div class="button"></div>
+        </div>
+    </div>
+
 </body>
 </html>
