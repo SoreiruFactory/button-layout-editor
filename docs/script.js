@@ -42,6 +42,32 @@ document.querySelectorAll('.draggable').forEach(element => {
 
     document.addEventListener('mouseup', () => isDragging = false);
 });
+document.addEventListener("DOMContentLoaded", function() {
+    updateShape();
+    document.querySelectorAll('.draggable').forEach(element => {
+        let isDragging = false;
+        let startY;
+        let type = element.dataset.type;
+
+        element.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startY = e.clientY;
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                let diff = Math.floor((startY - e.clientY) / 5);
+                if (diff !== 0) {
+                    changeValue(type, diff);
+                    startY = e.clientY;
+                }
+            }
+        });
+
+        document.addEventListener('mouseup', () => isDragging = false);
+    });
+});
+
 
 // 初期表示
 updateShape();
