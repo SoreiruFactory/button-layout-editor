@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Button Layout Editor</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    #editor {
+      width: 500px;
+      height: 500px;
+      border: 2px solid #000;
+      position: relative;
+    }
+    .button {
+      width: 50px;
+      height: 50px;
+      background-color: #3498db;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 5px;
+      cursor: move;
+      position: absolute;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Button Layout Editor</h1>
+<p>ドラッグしてボタンを配置できます</p>
+
+<div id="editor">
+  <div class="button" draggable="true" style="left: 10px; top: 10px;">Button 1</div>
+  <div class="button" draggable="true" style="left: 70px; top: 10px;">Button 2</div>
+</div>
+
+<script>
+  const buttons = document.querySelectorAll('.button');
+  const editor = document.getElementById('editor');
+
+  let draggedButton = null;
+  let offsetX, offsetY;
+
+  buttons.forEach(button => {
+    button.addEventListener('dragstart', (e) => {
+      draggedButton = e.target;
+      offsetX = e.offsetX;
+      offsetY = e.offsetY;
+    });
+
+    button.addEventListener('dragend', (e) => {
+      if (draggedButton) {
+        const editorRect = editor.getBoundingClientRect();
+        draggedButton.style.left = `${e.pageX - editorRect.left - offsetX}px`;
+        draggedButton.style.top = `${e.pageY - editorRect.top - offsetY}px`;
+        draggedButton = null;
+      }
+    });
+  });
+
+  editor.addEventListener('dragover', (e) => {
+    e.preventDefault(); // デフォルトの動作を無効にして、ドロップを有効化
+  });
+</script>
+
+</body>
+</html>
