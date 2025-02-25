@@ -54,6 +54,12 @@
             padding: 0 10px;
         }
 
+        .input-group label {
+            color: white;
+            font-size: 14px;
+            width: 60px;
+        }
+
         .input-group button {
             background: white;
             border: none;
@@ -63,15 +69,27 @@
             font-weight: bold;
         }
 
-        .color-picker {
-            width: 100%;
-            background: #555;
-            color: white;
-            border: none;
+        .color-group {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #555;
             border-radius: 20px;
-            text-align: center;
             padding: 5px;
-            font-size: 16px;
+        }
+
+        .color-picker {
+            width: 40px;
+            height: 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .color-code {
+            color: white;
+            font-size: 14px;
+            padding: 0 10px;
         }
 
         /* メインコンテンツ */
@@ -113,36 +131,49 @@
         <div class="settings">
             <h3>Shape Setting</h3>
             <div class="input-group">
+                <label>height</label>
                 <button onclick="updateShape('height', -10)">◀</button>
                 <span id="heightValue">170mm</span>
                 <button onclick="updateShape('height', 10)">▶</button>
             </div>
             <div class="input-group">
+                <label>wide</label>
                 <button onclick="updateShape('width', -10)">◀</button>
                 <span id="widthValue">300mm</span>
                 <button onclick="updateShape('width', 10)">▶</button>
             </div>
             <div class="input-group">
+                <label>corner</label>
                 <button onclick="updateShape('corner', -5)">◀</button>
                 <span id="cornerValue">20mm</span>
                 <button onclick="updateShape('corner', 5)">▶</button>
             </div>
-            <input type="color" class="color-picker" id="bgColorPicker" value="#afafaf">
+            <div class="color-group">
+                <label>color</label>
+                <input type="color" class="color-picker" id="bgColorPicker" value="#afafaf">
+                <span class="color-code" id="bgColorCode">#afafaf</span>
+            </div>
         </div>
 
         <div class="settings">
             <h3>Button Setting</h3>
             <div class="input-group">
+                <label>24mm</label>
                 <button onclick="updateButtonCount('24mm', -1)">◀</button>
                 <span id="btn24Count">11</span>
                 <button onclick="updateButtonCount('24mm', 1)">▶</button>
             </div>
             <div class="input-group">
+                <label>30mm</label>
                 <button onclick="updateButtonCount('30mm', -1)">◀</button>
                 <span id="btn30Count">1</span>
                 <button onclick="updateButtonCount('30mm', 1)">▶</button>
             </div>
-            <input type="color" class="color-picker" id="btnColorPicker" value="#3c3c3c">
+            <div class="color-group">
+                <label>color</label>
+                <input type="color" class="color-picker" id="btnColorPicker" value="#3c3c3c">
+                <span class="color-code" id="btnColorCode">#3c3c3c</span>
+            </div>
         </div>
     </div>
 
@@ -150,18 +181,18 @@
     <div class="main-content">
         <div class="controller" id="controller">
             <!-- 初期配置 -->
-            <div class="button" style="top: 20px; left: 40px; width: 24px; height: 24px;"></div>
-            <div class="button" style="top: 40px; left: 60px; width: 24px; height: 24px;"></div>
-            <div class="button" style="top: 60px; left: 80px; width: 24px; height: 24px;"></div>
-            <div class="button" style="top: 80px; left: 100px; width: 24px; height: 24px;"></div>
-            <div class="button" style="top: 40px; left: 120px; width: 24px; height: 24px;"></div>
-            <div class="button" style="top: 60px; left: 140px; width: 24px; height: 24px;"></div>
-            <div class="button" style="top: 80px; left: 160px; width: 24px; height: 24px;"></div>
-            <div class="button" style="top: 100px; left: 140px; width: 24px; height: 24px;"></div>
-            <div class="button" style="top: 100px; left: 120px; width: 24px; height: 24px;"></div>
-            <div class="button" style="top: 120px; left: 100px; width: 24px; height: 24px;"></div>
-            <div class="button" style="top: 80px; left: 80px; width: 24px; height: 24px;"></div>
-            <div class="button" style="top: 100px; left: 60px; width: 30px; height: 30px;"></div>
+            <div class="button" style="top: 30px; left: 50px; width: 24px; height: 24px;"></div>
+            <div class="button" style="top: 50px; left: 70px; width: 24px; height: 24px;"></div>
+            <div class="button" style="top: 70px; left: 90px; width: 24px; height: 24px;"></div>
+            <div class="button" style="top: 90px; left: 110px; width: 24px; height: 24px;"></div>
+            <div class="button" style="top: 50px; left: 130px; width: 24px; height: 24px;"></div>
+            <div class="button" style="top: 70px; left: 150px; width: 24px; height: 24px;"></div>
+            <div class="button" style="top: 90px; left: 170px; width: 24px; height: 24px;"></div>
+            <div class="button" style="top: 110px; left: 150px; width: 24px; height: 24px;"></div>
+            <div class="button" style="top: 110px; left: 130px; width: 24px; height: 24px;"></div>
+            <div class="button" style="top: 130px; left: 110px; width: 24px; height: 24px;"></div>
+            <div class="button" style="top: 90px; left: 90px; width: 24px; height: 24px;"></div>
+            <div class="button" style="top: 110px; left: 70px; width: 30px; height: 30px;"></div>
         </div>
     </div>
 
